@@ -16,14 +16,15 @@ import Text.Mustache (Template, ToMustache (toMustache), object, substitute, (~>
 import Text.Mustache.Compile (embedSingleTemplate)
 import Prelude hiding (readFile, writeFile)
 
-data ModelArgs = ModelArgs {modelName :: Text, modelNamePascal :: Text, columns :: [Column]}
+data ModelArgs = ModelArgs {modelName :: Text, modelNamePlural :: Text, modelNamePascal :: Text, modelNamePascalPlural :: Text, columns :: [Column]}
 
 instance ToMustache ModelArgs where
   toMustache modelArgs =
     object
       [ "entityName" ~> modelName modelArgs,
         "entityNamePascal" ~> modelNamePascal modelArgs,
-        "columns" ~> columns modelArgs
+        "columns" ~> columns modelArgs,
+        "entityNamePascalPlural" ~> modelNamePascalPlural modelArgs
       ]
 
 data Column = Column {columnName :: Text, columnType :: Text, columnRequired :: Bool, columnNamePascal :: Text}

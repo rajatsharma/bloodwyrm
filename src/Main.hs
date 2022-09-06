@@ -8,7 +8,7 @@ import Data.Maybe (fromMaybe)
 import Data.Text (Text, isSuffixOf, pack, splitOn, stripSuffix, toTitle, unpack)
 import GHC.IO (unsafePerformIO)
 import Initialise (InitArgs (..), initialise)
-import ModelGen (Column (..), ModelArgs (ModelArgs), model)
+import ModelGen (Column (..), ModelArgs (ModelArgs, modelNamePlural), model)
 import Options.Applicative
   ( Alternative (many),
     Applicative (pure, (<*>)),
@@ -35,7 +35,7 @@ import Prelude hiding (readFile, writeFile)
 
 data Ceraxes
   = Init String
-  | Model String [String]
+  | Model String String [String]
 
 logExit :: Text -> IO a
 logExit msg = do
@@ -63,6 +63,7 @@ createModel :: Parser Ceraxes
 createModel =
   Model
     <$> strArgument (metavar "MODEL_NAME")
+    <*> strArgument (metavar "MODEL_NAME PLURAL")
     <*> many (strArgument (metavar "FIELD..."))
 
 ceraxesParser :: Parser Ceraxes
@@ -73,12 +74,14 @@ ceraxesParser =
 
 runner :: Ceraxes -> IO ()
 runner (Init name) = initialise $ InitArgs $ pack name
-runner (Model modelName modelFields) = do
+runner (Model modelName modelNamePlural modelFields) = do
   if null modelFields then logExit "No fields supplied" else pure ()
   let fields = processField . pack <$> modelFields
   let modelNameText = pack modelName
+  let modelNamePluralText = pack modelNamePlural
   let modelNamePascal = fromRight "" $ toCamelCased True modelNameText
-  model $ ModelArgs modelNameText modelNamePascal fields
+  let modelNamePascalPlural = fromRight "" $ toCamelCased True $ pack modelNamePlural
+  model $ ModelArgs modelNameText modelNamePluralText modelNamePascal modelNamePascalPlural fields
 
 shell :: IO ()
 shell = runner =<< execParser opts

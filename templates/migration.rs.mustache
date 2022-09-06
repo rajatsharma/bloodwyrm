@@ -9,17 +9,18 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(Notes::Table)
+                    .table({{entityNamePascalPlural}}::Table)
                     .if_not_exists()
                     .col(
-                        ColumnDef::new(Notes::Id)
+                        ColumnDef::new({{entityNamePascalPlural}}::Id)
                             .integer()
                             .not_null()
                             .auto_increment()
                             .primary_key(),
                     )
-                    .col(ColumnDef::new(Notes::Title).string().not_null())
-                    .col(ColumnDef::new(Notes::Text).string().not_null())
+                    {{#columns}}
+                    .col(ColumnDef::new({{entityNamePascalPlural}}::{{columnNamePascal}}).{{columnType}}(){{#columnRequired}}.not_null(){{/columnRequired}})
+                    {{/columns}}
                     .to_owned(),
             )
             .await
@@ -34,9 +35,10 @@ impl MigrationTrait for Migration {
 
 /// Learn more at https://docs.rs/sea-query#iden
 #[derive(Iden)]
-enum Notes {
+enum {{entityNamePascalPlural}} {
     Table,
     Id,
-    Title,
-    Text,
+    {{#columns}}
+    {{columnNamePascal}},
+    {{/columns}}
 }
