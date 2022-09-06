@@ -3,7 +3,25 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    name: soothsayer
+    pantry-tree:
+      sha256: 8ffed3e8e9b03e02d6159883a9b1bf5daf80513aebcf748e8cea14a51d129bff
+      size: 571
+    commit: 6c63fb99975eae8eb46eb037640ed661313cafa4
+    git: git@github.com:rajatsharma/soothsayer.git
+    version: 0.1.0.0
+  original:
+    commit: 6c63fb99975eae8eb46eb037640ed661313cafa4
+    git: git@github.com:rajatsharma/soothsayer.git
+- completed:
+    pantry-tree:
+      sha256: d201b56e6402cf92b69f60718658bf25fc602fabe87d3c84934d07c910194e38
+      size: 1182
+    hackage: mustache-2.4.1@sha256:dc92ddbf90e3a64c3f2ec7785cf2937d6dcf6ffcebbc38ad9c8b33b6a70bb298,3180
+  original:
+    hackage: mustache-2.4.1@sha256:dc92ddbf90e3a64c3f2ec7785cf2937d6dcf6ffcebbc38ad9c8b33b6a70bb298,3180
 snapshots:
 - completed:
     sha256: a27a5761890ade44d7dd21a5f5f93c87e60b9c063655fff835d69dd1071474f0

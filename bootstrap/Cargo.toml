@@ -1,0 +1,19 @@
+[package]
+name = "sea-orm-graphql-example"
+authors = ["Aaron Leopold <aaronleopold1221@gmail.com>"]
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+members = [".", "entity", "migration"]
+
+[dependencies]
+tokio = { version = "1.0", features = ["full"] }
+axum = "^0.5.1"
+dotenv = "0.15.0"
+async-graphql-axum = "^4.0.6"
+entity = { path = "entity" }
+migration = { path = "migration" }
+sea-orm = { version = "0.9.2", features = ["runtime-tokio-native-tls","sqlx-sqlite"] }

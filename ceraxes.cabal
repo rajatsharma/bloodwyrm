@@ -20,10 +20,24 @@ extra-source-files:
 executable ceraxes
   main-is: Main.hs
   other-modules:
+      GenUtils
+      Initialise
+      Markers
+      ModelGen
       Paths_ceraxes
   hs-source-dirs:
       src
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , bytestring
+    , directory
+    , file-embed
+    , filepath
+    , inflections
+    , mustache
+    , optparse-applicative
+    , process
+    , soothsayer
+    , text
+    , time
   default-language: Haskell2010
