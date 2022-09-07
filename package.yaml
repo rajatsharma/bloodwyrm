@@ -24,6 +24,7 @@ dependencies:
   - bytestring
   - mustache
   - time
+  - load-env
 
 # ghc-options:
 # - -dynamic

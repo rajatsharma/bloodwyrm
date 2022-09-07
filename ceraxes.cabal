@@ -34,6 +34,7 @@ executable ceraxes
     , file-embed
     , filepath
     , inflections
+    , load-env
     , mustache
     , optparse-applicative
     , process

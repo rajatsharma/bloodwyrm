@@ -23,3 +23,4 @@ initialise args = do
   let baseProject = $(embedDir "bootstrap")
   let envFile = $(embedFile "./bootstrap/.env")
   forM_ baseProject $ uncurry createAndWriteFile
+  writeFile ".env" envFile

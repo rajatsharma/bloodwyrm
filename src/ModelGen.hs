@@ -7,6 +7,7 @@ import Data.Text (Text, pack, unpack)
 import Data.Text.IO (readFile, writeFile)
 import Data.Time (defaultTimeLocale, formatTime, getCurrentTime)
 import GenUtils ((++>), (//>))
+import LoadEnv (loadEnv)
 import Markers (migrationMarker, migrationModMarker, mutationMarker, mutationModMarker, queryMarker, queryModMarker)
 import Soothsayer ((***), (<~*))
 import System.Directory (createDirectoryIfMissing, getCurrentDirectory)
@@ -56,7 +57,7 @@ applyMutationSubstututions :: Text -> Text -> Text -> Text
 applyMutationSubstututions modelName' modelNamePascal' = (mutationMarker ++> ("{0}::{1}Mutation" <~* [modelName', modelNamePascal'])) . (mutationModMarker //> ("pub mod {0};" <~* [modelName']))
 
 applyMigrationSubstututions :: Text -> Text -> Text
-applyMigrationSubstututions migrationFile = (migrationMarker ++> ("{0}::Migration" <~* [migrationFile])) . (migrationModMarker //> ("mod {0};" <~* [migrationFile]))
+applyMigrationSubstututions migrationFile = (migrationMarker ++> ("Box::new({0}::Migration)" <~* [migrationFile])) . (migrationModMarker //> ("mod {0};" <~* [migrationFile]))
 
 model :: ModelArgs -> IO ()
 model args = do
@@ -83,3 +84,6 @@ model args = do
   applySubstitutions applyMigrationSubstututions' $ migratorDir </> "lib.rs"
 
   callCommand "cargo fmt"
+  loadEnv
+  callCommand "sea-orm-cli migrate up"
+  callCommand "sea-orm-cli generate entity -o src/entity"
