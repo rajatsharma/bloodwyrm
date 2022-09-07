@@ -1,4 +1,4 @@
-use entity::async_graphql;
+use ::async_graphql;
 /*Ceraxes Mutation Mod Marker*/
 
 // Add your other ones here to create a unified Mutation object

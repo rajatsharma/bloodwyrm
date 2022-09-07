@@ -47,12 +47,18 @@ handleOptional typeId
   | "!" `isSuffixOf` typeId = (True, fromMaybe "" $ stripSuffix "!" typeId)
   | otherwise = (False, typeId)
 
+getRustType :: Text -> Text
+getRustType "string" = "String"
+getRustType "integer" = "i32"
+getRustType _ = "String"
+
 processField :: Text -> Column
 processField columnStr = unsafePerformIO $ do
   case splitOn ":" columnStr of
     [name, typename] -> do
       let (isRequired, type') = handleOptional typename
-      pure Column {columnName = name, columnType = type', columnRequired = isRequired, columnNamePascal = fromRight "" $ toCamelCased True name}
+      let rustType = getRustType typename
+      pure Column {columnName = name, columnType = type', columnRequired = isRequired, columnNamePascal = fromRight "" $ toCamelCased True name, columnTypeRust = rustType}
     [name] -> logExit $ "No Type supplied for:" <> name
     _ -> logExit $ "Illegal pattern:" <> columnStr
 

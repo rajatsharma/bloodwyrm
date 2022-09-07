@@ -1,4 +1,4 @@
-use entity::async_graphql;
+use ::async_graphql;
 /*Ceraxes Query Mod Marker*/
 
 // Add your other ones here to create a unified Query object

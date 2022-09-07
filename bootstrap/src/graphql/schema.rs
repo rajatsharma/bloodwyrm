@@ -1,5 +1,4 @@
-use async_graphql::{EmptySubscription, Schema};
-use entity::async_graphql;
+use ::async_graphql::{EmptySubscription, Schema};
 use migration::{Migrator, MigratorTrait};
 
 use crate::{

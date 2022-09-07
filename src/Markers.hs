@@ -14,10 +14,13 @@ mutationMarker :: Text
 mutationMarker = "/*Ceraxes Mutation Marker*/"
 
 mutationModMarker :: Text
-mutationModMarker = "/*Ceraxes Query Mod Marker*/"
+mutationModMarker = "/*Ceraxes Mutation Mod Marker*/"
 
 migrationMarker :: Text
 migrationMarker = "/*Ceraxed Migrator Marker*/"
 
 migrationModMarker :: Text
 migrationModMarker = "/*Ceraxed Migrator Mod Marker*/"
+
+entityModMarker :: Text
+entityModMarker = "/*Ceraxes Entity Mod Marker*/"

@@ -1,9 +1,8 @@
 mod db;
 mod graphql;
+mod entity;
 
-use entity::async_graphql;
-
-use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
+use ::async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
 use axum::{
     extract::Extension,
